@@ -1,0 +1,16 @@
+# Maven / Java
+target/
+*.class
+*.jar
+
+# React / Node
+node_modules/
+build/
+dist/
+
+# VS Code
+.vscode/
+
+# Special files
+SPECS*.md
+US_EARS*.md
