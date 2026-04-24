@@ -1,4 +1,4 @@
-# Descriptiption
+# Description
 Web application component for a multistep web form.
 
 # Architecture
