@@ -2,8 +2,10 @@ import './ProgressBar.css';
 
 const PHASES = [
   { name: 'Situation', stepCount: 5, startStep: 0 },
-  { name: 'Special Needs', stepCount: 3, startStep: 5 },
-  { name: 'Recap', stepCount: 1, startStep: 8 },
+  { name: 'Special Needs', stepCount: 5, startStep: 5 },
+  { name: 'Contact', stepCount: 1, startStep: 10 },
+  { name: 'Recap', stepCount: 1, startStep: 11 },
+  { name: 'Your offer', stepCount: 1, startStep: 12 },
 ];
 
 interface Props {
@@ -12,8 +14,10 @@ interface Props {
 
 function getCurrentPhaseIndex(step: number): number {
   if (step < 5) return 0;
-  if (step < 8) return 1;
-  return 2;
+  if (step < 10) return 1;
+  if (step < 11) return 2;
+  if (step < 12) return 3;
+  return 4;
 }
 
 export default function ProgressBar({ currentStep }: Props) {

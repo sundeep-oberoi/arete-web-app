@@ -9,7 +9,8 @@ interface Props {
 export default function Navigation({ onSubmit }: Props) {
   const { state, nextStep, prevStep } = useForm();
   const { currentStep, data } = state;
-  const isLastStep = currentStep === 8;
+  const isLastStep = currentStep === 12;
+  const isRecapStep = currentStep === 11;
   const isFirstStep = currentStep === 0;
   const canNext = canProceed(currentStep, data);
 
@@ -24,6 +25,10 @@ export default function Navigation({ onSubmit }: Props) {
       {isLastStep ? (
         <button onClick={onSubmit} className="btn-primary">
           Submit quote
+        </button>
+      ) : isRecapStep ? (
+        <button onClick={nextStep} className="btn-primary" disabled={!canNext}>
+          View my offer →
         </button>
       ) : (
         <button onClick={nextStep} className="btn-primary" disabled={!canNext}>

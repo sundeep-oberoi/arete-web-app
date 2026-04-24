@@ -14,7 +14,7 @@ const OPTICAL_LABELS: Record<string, string> = {
   nothing: 'Nothing at all',
   standard: 'Standard glasses or contact lenses',
   progressive: 'Progressive lenses',
-  surgery: "Planning eye surgery",
+  surgery: 'Planning eye surgery',
 };
 
 const DENTAL_LABELS: Record<string, string> = {
@@ -30,6 +30,18 @@ const ALTERNATIVE_LABELS: Record<string, string> = {
   more_than_three: 'More than 3 times a year',
 };
 
+const HOSPITALISATION_LABELS: Record<string, string> = {
+  shared: 'A shared room suits me',
+  private_preferred: 'I prefer a private room if possible',
+  private_essential: 'A private room is essential for me',
+};
+
+const DOCTOR_LABELS: Record<string, string> = {
+  gp_specialist: 'GPs and occasionally a specialist',
+  specialist_standard: 'Specialists at standard rates',
+  specialist_private: 'Specialists, private rates',
+};
+
 export default function Recap() {
   const { state } = useForm();
   const { data } = state;
@@ -38,7 +50,7 @@ export default function Recap() {
     <div className="step">
       <h2 className="step-title">Your summary</h2>
       <p className="step-subtitle">
-        Please review your selections before submitting.
+        Please review your selections before viewing your personalised offer.
       </p>
 
       <div className="recap-section">
@@ -50,7 +62,7 @@ export default function Recap() {
             label="Children cover"
             value={
               data.coverChildren
-                ? `${data.numberOfChildren} child${data.numberOfChildren > 1 ? 'ren' : ''} included`
+                ? `${data.numberOfChildren} child${data.numberOfChildren !== 1 ? 'ren' : ''} included`
                 : 'Not included'
             }
           />
@@ -65,6 +77,16 @@ export default function Recap() {
           <RecapRow label="Optical needs" value={OPTICAL_LABELS[data.opticalNeeds]} />
           <RecapRow label="Dental needs" value={DENTAL_LABELS[data.dentalNeeds]} />
           <RecapRow label="Alternative medicine" value={ALTERNATIVE_LABELS[data.alternativeMedicine]} />
+          <RecapRow label="Hospitalisation" value={HOSPITALISATION_LABELS[data.hospitalisationPreference]} />
+          <RecapRow label="Choice of doctors" value={data.doctorChoice ? DOCTOR_LABELS[data.doctorChoice] : '—'} />
+        </div>
+      </div>
+
+      <div className="recap-section">
+        <h3 className="recap-section-title">Contact Details</h3>
+        <div className="recap-grid">
+          <RecapRow label="Email" value={data.email || '—'} />
+          <RecapRow label="Phone" value={data.phoneNumber || '—'} />
         </div>
       </div>
     </div>

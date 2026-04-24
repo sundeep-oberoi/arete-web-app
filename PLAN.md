@@ -30,17 +30,31 @@
 | Special Needs (1) | 5 | Optical Needs | No (default: Nothing at all) |
 | Special Needs (1) | 6 | Dental Needs | No (default: No cover) |
 | Special Needs (1) | 7 | Alternative Medicine | No (default: Never) |
-| Recap (2) | 8 | Summary + Submit | — |
+| Special Needs (1) | 8 | Hospitalisation Preferences | No (default: Shared room) |
+| Special Needs (1) | 9 | Choice of Doctors | Yes |
+| Contact (2) | 10 | Contact Details | Yes (email OR phone) |
+| Recap (3) | 11 | Summary | — |
+| Your offer (4) | 12 | Review Offer | — |
 
 ## Validation Rules
 - Step 0: `profile !== null`
 - Step 3: `18 ≤ parseInt(age) ≤ 85`
 - Step 4: `/^(?:0[1-9]|[1-8]\d|9[0-5])\d{3}$|^97[1-6]\d{2}$/`
+- Step 9: `doctorChoice !== null`
+- Step 10: `isValidEmail(email) || isValidFrenchMobile(phoneNumber)`
+  - French mobile: 10 digits, starts with 06 or 07
 
 ## Leave & Return Feature
 - "Save & return later" button in header
-- Saves `FormState` to localStorage, shows a toast confirmation
-- On app load: if localStorage key present, show resume modal
+- Saves `FormState` to localStorage for resume on page reload
+- Opens a modal requesting a valid email address
+- Calls `POST /api/save-leave-email` with the email and form data
+- Shows a "have a nice day" goodbye screen after submission
+
+## Backend API Calls
+- `POST /api/room-cost` — fetched on HospitalisationPreferences mount, displays average daily room cost
+- `POST /api/save-leave-email` — called when user leaves via "Save & return later"
+- `POST /api/offer` — fetched on ReviewOffer mount, displays monthly/annual premium
 
 ## File Structure
 ```
@@ -52,6 +66,7 @@ arete-web-app/
 │   ├── types/form.ts
 │   ├── utils/validation.ts
 │   ├── context/FormContext.tsx
+│   ├── services/api.ts
 │   ├── components/
 │   │   ├── ProgressBar.tsx / .css
 │   │   └── Navigation.tsx / .css
@@ -65,7 +80,11 @@ arete-web-app/
 │       ├── OpticalNeeds.tsx
 │       ├── DentalNeeds.tsx
 │       ├── AlternativeMedicine.tsx
-│       └── Recap.tsx
+│       ├── HospitalisationPreferences.tsx
+│       ├── ChoiceOfDoctors.tsx
+│       ├── ContactDetails.tsx / .css
+│       ├── Recap.tsx / .css
+│       └── ReviewOffer.tsx / .css
 ├── index.html
 ├── package.json
 ├── tsconfig.json

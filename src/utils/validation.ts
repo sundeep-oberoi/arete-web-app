@@ -11,6 +11,10 @@ export function canProceed(step: number, data: FormData): boolean {
     case 6: return true;
     case 7: return true;
     case 8: return true;
+    case 9: return data.doctorChoice !== null;
+    case 10: return isValidEmail(data.email) || isValidFrenchMobile(data.phoneNumber);
+    case 11: return true;
+    case 12: return true;
     default: return false;
   }
 }
@@ -26,4 +30,12 @@ export function isValidAge(age: string): { valid: boolean; error?: string } {
   if (num < 18) return { valid: false, error: 'You must be at least 18 years old to apply.' };
   if (num > 85) return { valid: false, error: 'Maximum age for this policy is 85.' };
   return { valid: true };
+}
+
+export function isValidEmail(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+export function isValidFrenchMobile(phone: string): boolean {
+  return /^0[67]\d{8}$/.test(phone.replace(/\s/g, ''));
 }

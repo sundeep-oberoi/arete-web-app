@@ -4,7 +4,9 @@
 - With a leave and come back button
 
 # Phase: Situation
-- Collect general information
+- Say here we collect general information
+- 5 questions to understand your situation
+- Lets get started
 ## Step: General Profile
 - Select your profile on a clickable card screen
 - Options: Employee, Self-employed, Retired, Civil servant, Student
@@ -25,14 +27,14 @@
 - If you enter an out-of-range age (< 18 or > 85), then show an error and do not allow to continue
 - Mandatory
 ## Step: Postcode
-- Enter your postcode in a single field
+- Where do you live? Enter your postcode in a single field
 - Explain the offer is priced according to your geographic zone
 - Mandatory, valid French post code
 
 # Phase: Special Needs
 - Say let's find the offer that's right for you
 - 5 questions about your health needs to recommend the best solution
-- Lets get started
+- Let's continue
 ## Step: Optical needs
 - Select your level of optical use from 4 plain-language options
 - You have options: 'Nothing at all', 'Standard glasses or contact lenses', 'Progressive lenses' or 'I'm planning eye surgery'
@@ -48,7 +50,44 @@
 - Explain this is to obtain coverage adapted to your actual use of complementary therapies
 - Options: 'Never or almost never', '1 to 2 times a year', 'More than 3 times a year'
 - Optional, default to 'Never or almost never'
+## Step: Hospitalisation preferences
+- Options: 'A shared room suits me', 'I prefer a private room if possible', 'A private room is essential for me'
+- Explain option for private room with a average daily cost cover
+- Get the average daily room cost dynamically
+- Optional, default to 'A shared room suits me'
+## Step: Choice of doctors
+- Options: 'GPs and occasionally a specialist', 'Specialists at standard rates', ' /'Specialists, private rates'
+- Mandatory
+
+# Phase: Contact details
+- Say 'Just one more step before your personalised offer', 'Last piece of information before we present the coverage most suited to your profile'
+## Step: Contact Details
+- Valid email, inline validation
+- Valid French phone number, 10 digits, starts with 06 or 07. Add a note 'Useful if you would like to be called back by an advisor'
+- Message below the fields: 'We will use your contact details to assist you in your process, by email or phone. See our privacy policy'
+- Mandatory, any one email or phone number 
 
 # Phase: Recap
 - Show a summary of responses
-- Show a submit button
+- Show a 'View my offer' button
+
+# Phase: Review offer
+- Get the final offer and show the price in euros 
+- Show a summary of responses
+
+# Leave and come back
+- Say we will send you a link to return to the form. Complete it at your pace
+- Request an email before leaving
+- Must be a valid email, inline validation
+- Save the email address
+- Show a thank you, have a nice day page
+
+# Backend APIs
+## Get average daily room cost
+- Get the room cost by using an API, send all collected responses
+
+## Save the email address when leave and come back 
+- Save the email address by using an API, send all collected responses
+
+# Get the final offer
+- Get the final offer by using an API, send all collected responses
