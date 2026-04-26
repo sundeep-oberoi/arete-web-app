@@ -8,7 +8,7 @@ Web application component for a multistep web form.
 - Add a base path "/multistepform" to React application
 - Ensure nginx conf is also correctly using the base path
 - Use REST/JSON APIs to connect to the backend
-- Use an environment variable for the API base url 
+- Use an environment variable for the API base url
 - Backend API code is built in a separate repo
 
 # Web Application Style

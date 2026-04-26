@@ -15,7 +15,7 @@ export interface OfferResponse {
 }
 
 export async function getRoomCost(formData: FormData): Promise<RoomCostResponse> {
-  const res = await fetch(`${BASE_URL}/api/room-cost`, {
+  const res = await fetch(`${BASE_URL}/room-cost`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
@@ -25,7 +25,7 @@ export async function getRoomCost(formData: FormData): Promise<RoomCostResponse>
 }
 
 export async function saveLeaveEmail(email: string, formData: FormData): Promise<void> {
-  const res = await fetch(`${BASE_URL}/api/save-leave-email`, {
+  const res = await fetch(`${BASE_URL}/save-leave-email`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, formData }),
@@ -34,7 +34,7 @@ export async function saveLeaveEmail(email: string, formData: FormData): Promise
 }
 
 export async function getFinalOffer(formData: FormData): Promise<OfferResponse> {
-  const res = await fetch(`${BASE_URL}/api/offer`, {
+  const res = await fetch(`${BASE_URL}/offer`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),

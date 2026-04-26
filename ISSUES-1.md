@@ -1,0 +1,2 @@
+# Issues
+- The script to call backend APIs adds a '/api' to the path specified in the variable VITE_API_BASE_URL in the .env file causing API failure. Th script should not add antything to the path and use path in VITE_API_BASE_URL
