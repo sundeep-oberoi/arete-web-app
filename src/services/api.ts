@@ -38,6 +38,7 @@ export async function getFinalOffer(formData: FormData): Promise<OfferResponse> 
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
+    signal: AbortSignal.timeout(90_000),
   });
   if (!res.ok) throw new Error('Failed to fetch offer');
   return res.json() as Promise<OfferResponse>;

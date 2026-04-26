@@ -91,3 +91,4 @@
 
 # Get the final offer
 - Get the final offer by using an API, send all collected responses
+- This API can take about 60 seconds, so keep a higher timeout
