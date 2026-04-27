@@ -93,6 +93,6 @@
 ## Get my offer
 - First save the form, send all collected responses. The API returns a UUID
 - Second get the final offer by using a second API with the UUID
-- If the API times out, try five times 
-- This API can take about 120 seconds, so keep a higher timeout
-- If the API times out five times, show a message saying we will contact you soon with the offer
+- If the API returns a 202 Offer Calculation In Progress, retry 
+- This API can take about 60 seconds, so keep a high timeout
+- If the API returns a 202 five times, show a message saying we will contact you soon with your offer

@@ -47,10 +47,18 @@ export async function saveForm(formData: FormData): Promise<SaveFormResponse> {
   return res.json() as Promise<SaveFormResponse>;
 }
 
+export class OfferPendingError extends Error {
+  constructor() {
+    super('Offer calculation in progress');
+    this.name = 'OfferPendingError';
+  }
+}
+
 export async function getOfferByUuid(uuid: string): Promise<OfferResponse> {
   const res = await fetch(`${BASE_URL}/offer/${encodeURIComponent(uuid)}`, {
     signal: AbortSignal.timeout(130_000),
   });
+  if (res.status === 202) throw new OfferPendingError();
   if (!res.ok) throw new Error('Failed to fetch offer');
   return res.json() as Promise<OfferResponse>;
 }

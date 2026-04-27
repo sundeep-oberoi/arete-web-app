@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useForm } from '../context/FormContext';
-import { saveForm, getOfferByUuid } from '../services/api';
+import { saveForm, getOfferByUuid, OfferPendingError } from '../services/api';
 import type { OfferResponse } from '../services/api';
 import './steps.css';
 import './ReviewOffer.css';
@@ -30,8 +30,9 @@ const APOLOGY_DELAY_MS = 60_000;
 
 type Status = 'loading' | 'success' | 'give_up' | 'error';
 
-function isTimeoutError(err: unknown): boolean {
-  return err instanceof Error && (err.name === 'TimeoutError' || err.name === 'AbortError');
+function isRetriable(err: unknown): boolean {
+  return err instanceof OfferPendingError ||
+    (err instanceof Error && (err.name === 'TimeoutError' || err.name === 'AbortError'));
 }
 
 export default function ReviewOffer() {
@@ -67,7 +68,7 @@ export default function ReviewOffer() {
           setStatus('success');
           return;
         } catch (err) {
-          if (!isTimeoutError(err)) {
+          if (!isRetriable(err)) {
             clearTimeout(apologyTimer);
             setStatus('error');
             return;
