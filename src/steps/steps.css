@@ -4,6 +4,15 @@
   padding: 0 0.5rem;
 }
 
+.step--intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+  padding-top: 2rem;
+}
+
 .step-title {
   font-size: 1.75rem;
   font-weight: 700;

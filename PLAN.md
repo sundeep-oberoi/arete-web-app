@@ -22,26 +22,28 @@
 ## Step Map
 | Phase | Global Index | Step Name | Mandatory? |
 |---|---|---|---|
-| Situation (0) | 0 | General Profile | Yes |
-| Situation (0) | 1 | Partner | No (default: not covered) |
-| Situation (0) | 2 | Children | No (default: not covered) |
-| Situation (0) | 3 | Age | Yes (18–85) |
-| Situation (0) | 4 | Postcode | Yes (valid French) |
-| Special Needs (1) | 5 | Optical Needs | No (default: Nothing at all) |
-| Special Needs (1) | 6 | Dental Needs | No (default: No cover) |
-| Special Needs (1) | 7 | Alternative Medicine | No (default: Never) |
-| Special Needs (1) | 8 | Hospitalisation Preferences | No (default: Shared room) |
-| Special Needs (1) | 9 | Choice of Doctors | Yes |
-| Contact (2) | 10 | Contact Details | Yes (email OR phone) |
-| Recap (3) | 11 | Summary | — |
-| Your offer (4) | 12 | Review Offer | — |
+| Situation (0) | 0 | Situation Intro | — (phase landing) |
+| Situation (0) | 1 | General Profile | Yes |
+| Situation (0) | 2 | Partner | No (default: not covered) |
+| Situation (0) | 3 | Children | No (default: not covered) |
+| Situation (0) | 4 | Age | Yes (18–85) |
+| Situation (0) | 5 | Postcode | Yes (valid French) |
+| Special Needs (1) | 6 | Special Needs Intro | — (phase landing) |
+| Special Needs (1) | 7 | Optical Needs | No (default: Nothing at all) |
+| Special Needs (1) | 8 | Dental Needs | No (default: No cover) |
+| Special Needs (1) | 9 | Alternative Medicine | No (default: Never) |
+| Special Needs (1) | 10 | Hospitalisation Preferences | No (default: Shared room) |
+| Special Needs (1) | 11 | Choice of Doctors | Yes |
+| Contact (2) | 12 | Contact Details | Yes (email OR phone) |
+| Recap (3) | 13 | Summary | — |
+| Your offer (4) | 14 | Review Offer | — |
 
 ## Validation Rules
-- Step 0: `profile !== null`
-- Step 3: `18 ≤ parseInt(age) ≤ 85`
-- Step 4: `/^(?:0[1-9]|[1-8]\d|9[0-5])\d{3}$|^97[1-6]\d{2}$/`
-- Step 9: `doctorChoice !== null`
-- Step 10: `isValidEmail(email) || isValidFrenchMobile(phoneNumber)`
+- Step 1: `profile !== null`
+- Step 4: `18 ≤ parseInt(age) ≤ 85`
+- Step 5: `/^(?:0[1-9]|[1-8]\d|9[0-5])\d{3}$|^97[1-6]\d{2}$/`
+- Step 11: `doctorChoice !== null`
+- Step 12: `isValidEmail(email) || isValidFrenchMobile(phoneNumber)`
   - French mobile: 10 digits, starts with 06 or 07
 
 ## Leave & Return Feature
@@ -54,7 +56,8 @@
 ## Backend API Calls
 - `POST /api/room-cost` — fetched on HospitalisationPreferences mount, displays average daily room cost
 - `POST /api/save-leave-email` — called when user leaves via "Save & return later"
-- `POST /api/offer` — fetched on ReviewOffer mount, displays monthly/annual premium
+- `POST /api/save-form` — called on ReviewOffer mount; saves form data, returns UUID
+- `GET /api/offer/{uuid}` — called after save-form; retried up to 5× on timeout (130 s each); displays monthly/annual premium
 
 ## File Structure
 ```

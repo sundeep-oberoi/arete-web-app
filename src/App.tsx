@@ -5,11 +5,13 @@ import { isValidEmail } from './utils/validation';
 import { saveLeaveEmail } from './services/api';
 import ProgressBar from './components/ProgressBar';
 import Navigation from './components/Navigation';
+import SituationIntro from './steps/SituationIntro';
 import GeneralProfile from './steps/GeneralProfile';
 import Partner from './steps/Partner';
 import Children from './steps/Children';
 import Age from './steps/Age';
 import Postcode from './steps/Postcode';
+import SpecialNeedsIntro from './steps/SpecialNeedsIntro';
 import OpticalNeeds from './steps/OpticalNeeds';
 import DentalNeeds from './steps/DentalNeeds';
 import AlternativeMedicine from './steps/AlternativeMedicine';
@@ -21,25 +23,26 @@ import ReviewOffer from './steps/ReviewOffer';
 import './App.css';
 
 const STEP_COMPONENTS = [
-  GeneralProfile,
-  Partner,
-  Children,
-  Age,
-  Postcode,
-  OpticalNeeds,
-  DentalNeeds,
-  AlternativeMedicine,
-  HospitalisationPreferences,
-  ChoiceOfDoctors,
-  ContactDetails,
-  Recap,
-  ReviewOffer,
+  SituationIntro,           // 0
+  GeneralProfile,           // 1
+  Partner,                  // 2
+  Children,                 // 3
+  Age,                      // 4
+  Postcode,                 // 5
+  SpecialNeedsIntro,        // 6
+  OpticalNeeds,             // 7
+  DentalNeeds,              // 8
+  AlternativeMedicine,      // 9
+  HospitalisationPreferences, // 10
+  ChoiceOfDoctors,          // 11
+  ContactDetails,           // 12
+  Recap,                    // 13
+  ReviewOffer,              // 14
 ];
 
 function FormApp() {
   const { state, save, load, reset } = useForm();
   const [resumeData, setResumeData] = useState<FormState | null>(null);
-  const [submitted, setSubmitted] = useState(false);
 
   // Leave-and-come-back modal state
   const [showLeaveModal, setShowLeaveModal] = useState(false);
@@ -90,11 +93,6 @@ function FormApp() {
     setLeaveGoodbye(true);
   };
 
-  const handleSubmit = () => {
-    setSubmitted(true);
-    reset();
-  };
-
   if (leaveGoodbye) {
     return (
       <div className="app">
@@ -107,21 +105,6 @@ function FormApp() {
           </p>
           <p style={{ marginTop: '0.5rem' }}>Have a nice day!</p>
           <button onClick={() => { setLeaveGoodbye(false); reset(); }} className="btn-primary">
-            Start a new quote
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  if (submitted) {
-    return (
-      <div className="app">
-        <div className="submitted-screen">
-          <div className="submitted-icon">✓</div>
-          <h2>Thank you!</h2>
-          <p>Your information has been submitted. We'll be in touch shortly.</p>
-          <button onClick={() => setSubmitted(false)} className="btn-primary">
             Start a new quote
           </button>
         </div>
@@ -212,7 +195,7 @@ function FormApp() {
         <div className="step-container">
           <StepComponent />
         </div>
-        <Navigation onSubmit={handleSubmit} />
+        <Navigation />
       </main>
     </div>
   );

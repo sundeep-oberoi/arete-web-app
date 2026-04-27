@@ -18,7 +18,7 @@ Web application component for a multistep web form.
 
 # Steps
 - Read the requirements in the file "SPECIFICATIONS.md"
-- Write a "PLAN.md"
+- Write a "PLAN.md" or update it as needed
 - Write the backend API specifications in the "API-SPEC.md"
 - Use latest OpenAPI standards when writing the API specifications
 - Write the code

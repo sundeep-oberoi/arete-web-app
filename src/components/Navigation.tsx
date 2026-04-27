@@ -2,17 +2,18 @@ import { useForm } from '../context/FormContext';
 import { canProceed } from '../utils/validation';
 import './Navigation.css';
 
-interface Props {
-  onSubmit: () => void;
-}
-
-export default function Navigation({ onSubmit }: Props) {
+export default function Navigation() {
   const { state, nextStep, prevStep } = useForm();
   const { currentStep, data } = state;
-  const isLastStep = currentStep === 12;
-  const isRecapStep = currentStep === 11;
+  const isLastStep = currentStep === 14;
+  const isRecapStep = currentStep === 13;
   const isFirstStep = currentStep === 0;
   const canNext = canProceed(currentStep, data);
+
+  let nextLabel = 'Continue →';
+  if (currentStep === 0) nextLabel = "Let's get started";
+  else if (currentStep === 6) nextLabel = "Let's continue";
+  else if (isRecapStep) nextLabel = 'Get my offer';
 
   return (
     <div className="navigation">
@@ -23,16 +24,10 @@ export default function Navigation({ onSubmit }: Props) {
       )}
       {isFirstStep && <div />}
       {isLastStep ? (
-        <button onClick={onSubmit} className="btn-primary">
-          Submit quote
-        </button>
-      ) : isRecapStep ? (
-        <button onClick={nextStep} className="btn-primary" disabled={!canNext}>
-          View my offer →
-        </button>
+        <div />
       ) : (
         <button onClick={nextStep} className="btn-primary" disabled={!canNext}>
-          Continue →
+          {nextLabel}
         </button>
       )}
     </div>

@@ -2,19 +2,21 @@ import type { FormData } from '../types/form';
 
 export function canProceed(step: number, data: FormData): boolean {
   switch (step) {
-    case 0: return data.profile !== null;
-    case 1: return true;
-    case 2: return true;
-    case 3: return isValidAge(data.age).valid;
-    case 4: return isValidFrenchPostcode(data.postcode);
-    case 5: return true;
-    case 6: return true;
-    case 7: return true;
-    case 8: return true;
-    case 9: return data.doctorChoice !== null;
-    case 10: return isValidEmail(data.email) || isValidFrenchMobile(data.phoneNumber);
-    case 11: return true;
-    case 12: return true;
+    case 0: return true;   // SituationIntro
+    case 1: return data.profile !== null;   // GeneralProfile
+    case 2: return true;   // Partner
+    case 3: return true;   // Children
+    case 4: return isValidAge(data.age).valid;   // Age
+    case 5: return isValidFrenchPostcode(data.postcode);   // Postcode
+    case 6: return true;   // SpecialNeedsIntro
+    case 7: return true;   // OpticalNeeds
+    case 8: return true;   // DentalNeeds
+    case 9: return true;   // AlternativeMedicine
+    case 10: return true;  // HospitalisationPreferences
+    case 11: return data.doctorChoice !== null;  // ChoiceOfDoctors
+    case 12: return isValidEmail(data.email) || isValidFrenchMobile(data.phoneNumber);  // ContactDetails
+    case 13: return true;  // Recap
+    case 14: return true;  // ReviewOffer
     default: return false;
   }
 }

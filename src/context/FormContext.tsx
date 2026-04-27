@@ -37,7 +37,7 @@ type Action =
 function reducer(state: FormState, action: Action): FormState {
   switch (action.type) {
     case 'NEXT_STEP':
-      return { ...state, currentStep: Math.min(state.currentStep + 1, 12) };
+      return { ...state, currentStep: Math.min(state.currentStep + 1, 14) };
     case 'PREV_STEP':
       return { ...state, currentStep: Math.max(state.currentStep - 1, 0) };
     case 'UPDATE_FIELD':

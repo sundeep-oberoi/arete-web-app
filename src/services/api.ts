@@ -7,6 +7,10 @@ export interface RoomCostResponse {
   currency: string;
 }
 
+export interface SaveFormResponse {
+  uuid: string;
+}
+
 export interface OfferResponse {
   monthlyPremium: number;
   annualPremium: number;
@@ -33,12 +37,19 @@ export async function saveLeaveEmail(email: string, formData: FormData): Promise
   if (!res.ok) throw new Error('Failed to save email');
 }
 
-export async function getFinalOffer(formData: FormData): Promise<OfferResponse> {
-  const res = await fetch(`${BASE_URL}/offer`, {
+export async function saveForm(formData: FormData): Promise<SaveFormResponse> {
+  const res = await fetch(`${BASE_URL}/save-form`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
-    signal: AbortSignal.timeout(120_000),
+  });
+  if (!res.ok) throw new Error('Failed to save form');
+  return res.json() as Promise<SaveFormResponse>;
+}
+
+export async function getOfferByUuid(uuid: string): Promise<OfferResponse> {
+  const res = await fetch(`${BASE_URL}/offer/${encodeURIComponent(uuid)}`, {
+    signal: AbortSignal.timeout(130_000),
   });
   if (!res.ok) throw new Error('Failed to fetch offer');
   return res.json() as Promise<OfferResponse>;
